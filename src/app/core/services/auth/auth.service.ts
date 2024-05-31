@@ -17,7 +17,7 @@ export class AuthService {
   ) { }
 
   logIn(loginObject) {
-    return this.http.post(`${this.config.getAPILink()}/api/Users/v1/auth/login`, loginObject)
+    return this.http.post(`${this.config.getAPILink()}/api/login`, loginObject)
   }
 
   LogOut() {
