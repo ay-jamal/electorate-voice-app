@@ -1,0 +1,35 @@
+<nb-card class="main-card filter-card">
+  <nb-card-header class="card-with-title-colse-btn">
+    <button
+      class="header-action"
+      nbButton
+      appearance="ghost"
+      (click)="close(null)"
+    >
+      إغلاق
+      <fa-icon class="ms-2 icon" [icon]="['fas', 'times']"></fa-icon>
+    </button>
+    <h3 class="h3-font">
+      {{ editMode ? "تعديل المرشح" : "اظافة مرشح " }}
+    </h3>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row my-2">
+      <div class="form-feaild">
+        <h3 class="feaild-name">اسم المرشح</h3>
+        <input
+          dir="auto"
+          placeholder="ادخل اسم المرشح"
+          class="feaild-input"
+          nbInput
+          type="text"
+        />
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer
+    ><button (click)="submit()" class="btn primary-btn mt-2" nbButton>
+      حفظ
+    </button>
+  </nb-card-footer>
+</nb-card>

@@ -1,0 +1,48 @@
+<nb-card class="main-card filter-card">
+  <nb-card-header class="card-with-title-colse-btn">
+    <button
+      class="header-action"
+      nbButton
+      appearance="ghost"
+      (click)="close(null)"
+    >
+      إغلاق
+      <fa-icon class="ms-2 icon" [icon]="['fas', 'times']"></fa-icon>
+    </button>
+    <h3 class="h3-font">قائمة الأجوبة</h3>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="col">
+      <div class="row my-2">
+        <div class="col">
+          <button class="btn danger-btn mt-2" nbButton>
+            حذف
+            <fa-icon class="btn-icon" [icon]="['fas', 'trash']"></fa-icon>
+          </button>
+          <button (click)="addAnswer()" class="btn primary-btn mt-2" nbButton>
+            اظافة جواب جديد
+            <fa-icon class="btn-icon" [icon]="['fas', 'plus']"></fa-icon>
+          </button>
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="row">
+        <ag-grid-angular
+          style="height: 40vh"
+          class="ag-theme-alpine text-center"
+          [rowData]="rowData"
+          [rowHeight]="70"
+          [overlayNoRowsTemplate]="'لا يوجد بيانات لعرضها'"
+          [rowSelection]="'single'"
+          [defaultColDef]="agConfig.defaultColDef"
+          [icons]="agConfig.icons"
+          [localeText]="agConfig.translation"
+          [columnDefs]="columnDefs"
+          (rowSelected)="onRowSelection($event)"
+          (gridReady)="agConfig.onGridReady($event)"
+        >
+        </ag-grid-angular>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

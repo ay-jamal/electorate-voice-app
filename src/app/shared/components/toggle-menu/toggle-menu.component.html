@@ -1,0 +1,31 @@
+<div class="userMenu-container">
+  <ul (click)="userMenu = !userMenu" class="showing">
+    <li>
+      <nb-icon [icon]="icon" pack="figma-icons"></nb-icon>
+      {{ name }}
+      <nb-icon icon="arrow-down" pack="figma-icons"></nb-icon>
+    </li>
+  </ul>
+  <div class="menu-container">
+    <ul *ngIf="userMenu">
+      <li *ngFor="let item of items">
+        <a
+          (click)="userMenu = !userMenu"
+          [routerLink]="item.path"
+          routerLinkActive="router-link-active"
+          >{{ item.title }}
+          <nb-icon [icon]="item.icon" pack="figma-icons"></nb-icon>
+          <li *ngFor="let children of item.children">
+            <a
+              (click)="userMenu = !userMenu"
+              [routerLink]="children.path"
+              routerLinkActive="router-link-active"
+              >{{ children.title }}
+              <nb-icon [icon]="item.icon" pack="figma-icons"></nb-icon>
+            </a>
+          </li>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+span {
+  padding: 0 10px;
+  display: inline-block;
+  border-radius: 10px;
+  text-align: center;
+  min-width: 50px;
+}
+
+.active {
+  background: var(--color-success-extra-ligth);
+  color: var(--color-success-dark);
+}
+
+.notActive {
+  background: #e6e8ec;
+  color: #838a8e;
+}

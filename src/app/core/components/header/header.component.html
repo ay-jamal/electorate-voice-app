@@ -1,0 +1,46 @@
+<div *ngIf="ShowProgress" class="progressbar">
+  <div class="loaderBar"></div>
+</div>
+<div class="header-container">
+  <ul class="links">
+    <li>
+      <a routerLink="/home/dashboard" routerLinkActive="router-link-active"
+        >الرئيسية
+        <nb-icon icon="House" pack="figma-icons"></nb-icon>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/home/candidates" routerLinkActive="router-link-active">
+        المرشحين
+        <nb-icon icon="person-text" pack="figma-icons"></nb-icon>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/home/poll" routerLinkActive="router-link-active"
+        >الاستطلاعات
+        <nb-icon icon="doc-text" pack="figma-icons"></nb-icon>
+      </a>
+    </li>
+    <li>
+      <a routerLink="path" routerLinkActive="router-link-active">
+        المشاركة في الاستطلاعات
+        <nb-icon icon="low_priority" pack="figma-icons"></nb-icon>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/home/results/" routerLinkActive="router-link-active">
+        النتائج
+        <nb-icon icon="invoice" pack="figma-icons"></nb-icon>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/home/users/" routerLinkActive="router-link-active"
+        >المجموعات والمستخدمين
+        <nb-icon icon="person-circle" pack="figma-icons"></nb-icon>
+      </a>
+    </li>
+  </ul>
+  <div class="user">
+    <app-header-menu [name]="'مدير النظام'" [userImage]="''"></app-header-menu>
+  </div>
+</div>

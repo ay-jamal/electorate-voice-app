@@ -1,0 +1,48 @@
+<nb-card class="h-100">
+  <nb-card-header class="mt-2 d-flex justify-content-between" dir="rtl">
+    <div class="start">
+      <div class="routes">
+        <a class="route" routerLinkActive="active">المستخدمين</a>
+      </div>
+      <div class="form-feaild">
+        <div class="feaild-input-icon">
+          <input
+            dir="auto"
+            placeholder="ادخل الاسم هنا"
+            class="feaild-input"
+            nbInput
+            type="text"
+          />
+          <fa-icon class="input-icon" [icon]="['fas', 'search']"></fa-icon>
+        </div>
+      </div>
+    </div>
+    <div class="end">
+      <button class="btn primary-btn ms-2" nbButton>
+        <fa-icon class="btn-icon" [icon]="['fas', 'plus']"></fa-icon>
+        إضافة مستخدم جديد
+      </button>
+      <button class="btn danger-outline-btn ms-2" nbButton>
+        <fa-icon class="btn-icon" [icon]="['fas', 'trash']"></fa-icon>
+        حذف
+      </button>
+    </div>
+  </nb-card-header>
+  <nb-card-body class="table-content h-100 p-0 my-3">
+    <ag-grid-angular
+      class="ag-theme-alpine text-center"
+      [rowData]="agConfig.rowData"
+      [rowHeight]="70"
+      [overlayNoRowsTemplate]="'لا يوجد بيانات لعرضها'"
+      [rowSelection]="'single'"
+      [defaultColDef]="agConfig.defaultColDef"
+      [pagination]="true"
+      [icons]="agConfig.icons"
+      [localeText]="agConfig.translation"
+      [columnDefs]="columnDefs"
+      (rowSelected)="onRowSelection($event)"
+      (gridReady)="agConfig.onGridReady($event)"
+    >
+    </ag-grid-angular>
+  </nb-card-body>
+</nb-card>

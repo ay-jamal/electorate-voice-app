@@ -1,0 +1,30 @@
+<div class="userMenu-container">
+  <ul (click)="userMenu = !userMenu" class="showing">
+    <li>
+      مدير النظام
+      <nb-icon icon="arrow-down" pack="figma-icons"></nb-icon>
+    </li>
+    <li>
+      <fa-icon
+        style="font-size: 30px"
+        class="icon primary-color"
+        [icon]="['fas', 'user-circle']"
+      ></fa-icon>
+    </li>
+  </ul>
+  <div class="menu-container">
+    <ul *ngIf="userMenu">
+      <li>
+        <a routerLink="/home/user-profile">ملف المستخدم</a>
+      </li>
+      <li class="py-0">
+        <div class="divider">
+          <div class="line"></div>
+        </div>
+      </li>
+      <li (click)="authService.LogOut()">
+        <a> تسجيل خروج</a>
+      </li>
+    </ul>
+  </div>
+</div>

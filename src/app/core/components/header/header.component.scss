@@ -1,0 +1,83 @@
+:host {
+  width: 100%;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 0.8rem;
+  align-items: center;
+  flex-direction: row-reverse;
+  height: 100% !important;
+  .links {
+    display: flex;
+    list-style: none;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    li {
+      height: 100%;
+      padding-inline-end: 0.5rem;
+      cursor: pointer;
+      a {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        height: 100%;
+        font-size: 12px;
+        padding-block: 0.5rem;
+        padding-inline: 0.2rem;
+        border-radius: 4px;
+        position: relative;
+      }
+      .router-link-active {
+        background-color: #dee9ff;
+        nb-icon {
+          color: #3158a7;
+        }
+      }
+    }
+  }
+  .user {
+    position: relative;
+  }
+}
+
+:host ::ng-deep {
+  .user-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse !important;
+    gap: 5px;
+  }
+  .user-picture {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
+.progressbar {
+  width: 100%;
+  position: fixed;
+  background-color: var(--color-primary-800);
+  height: 3px;
+  left: 0;
+  right: 0;
+  top: 0;
+  .loaderBar {
+    position: absolute;
+    height: 3px;
+    top: 0;
+    right: 100%;
+    bottom: 0;
+    left: 0;
+    background: #e0e8f7;
+    width: 0;
+    animation: borealisBar 1s linear infinite;
+  }
+}

@@ -1,0 +1,18 @@
+<nb-card class="alert-card">
+  <nb-card-header class="text-start">
+    <button (click)="Close(false)" nbButton appearance="ghost">
+      إغلاق <fa-icon class="fa-fw ms-1" [icon]="['fas', 'times']"></fa-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body class="text-center">
+    <img class="alert-img" src="./assets/images/danger-alert.png" />
+    <h3 class="text-center h3-font">{{message}}</h3>
+    <h4 class="text-center h4-font mb-5 submessage">
+      {{subMessage}}
+    </h4>
+    <button (click)="Close(true)" nbButton class="btn danger-btn mb-3 w-100">
+      تأكيد العملية
+      <fa-icon class="fa-fw ms-1" [icon]="['fas', 'trash']"></fa-icon>
+    </button>
+  </nb-card-body>
+</nb-card>

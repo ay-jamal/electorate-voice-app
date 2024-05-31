@@ -1,0 +1,18 @@
+<div class="container">
+  <button nbButton appearance="ghost" (click)="onToggle()">
+    <fa-icon [icon]="['fas', 'ellipsis']"></fa-icon>
+  </button>
+  <div *ngIf="toggleMenu && items.length" class="menu-content">
+    <ul class="menu">
+      <ng-container *ngFor="let v of items; let last = last; let i = index">
+        <li
+          [ngClass]="{ 'last-item': last && !v.color }"
+          (click)="OnItemClick(v)"
+        >
+          {{ v.title }}
+          <nb-icon [icon]="v.icon" pack="figma-icons"></nb-icon>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</div>

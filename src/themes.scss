@@ -1,0 +1,49 @@
+// import Nebular Theme System and the default theme
+@forward "@nebular/theme/styles/theming";
+@use "@nebular/theme/styles/theming" as *;
+@use "@nebular/theme/styles/themes/default";
+
+$nb-themes: nb-register-theme(
+  (
+    color-white: #ffffff,
+    color-primary-100: #F3F7FF,
+    color-primary-200: #DEE9FF,
+    color-primary-300: #6A8CD1,
+    color-primary-400: #6A8CD1,
+    color-primary-500: #3158A7,
+    color-primary-600: #3158A7,
+    color-primary-700: #3158A7,
+    color-primary-800: #3158A7,
+    color-primary-900: #3158A7,
+  
+  
+    color-primary-ligth: #6A8CD1,
+    color-primary-dark: #3158A7,
+  
+    color-basic-tiny-ligth: #E6E8EC,
+    color-basic-extra-ligth: #F6F7F9,
+    color-basic-ligth: #838A8E,
+    color-basic-dark: #191233,
+    color-basic-gray: #CDD0D2,
+
+
+    color-gray-400: #F5F5F5,
+  
+  
+    color-success-tiny-ligth: #A5D8B0,
+    color-success-extra-ligth: #E7FFEC,
+    color-success-ligth: #A5D8B0,
+    color-success-dark: #69AE78,
+  
+    color-warning-tiny-ligth: #FFF4E4,
+    color-warning-ligth: #EFA22F,
+    color-warning-dark: #C18120,
+  
+    
+    color-danger-tiny-ligth: #FFEDED,
+    color-danger-ligth: #FA5959,
+    color-danger-dark: #DD4242,
+  ),
+  default,
+  default
+);

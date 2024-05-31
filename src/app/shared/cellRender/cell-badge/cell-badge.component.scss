@@ -1,0 +1,32 @@
+.cell-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 12px;
+  border-radius: 7px;
+  min-width: 60px;
+  cursor: context-menu;
+  background-color: var(--color-primary-200);
+  color: var(--color-primary-300);
+
+  &.success {
+    background-color: var(--color-success-extra-ligth);
+    color: var(--color-success-ligth);
+  }
+  &.danger {
+    background-color: var(--color-danger-tiny-ligth);
+    color: var(--color-danger-ligth);
+  }
+  &.basic {
+    background-color: var(--color-basic-tiny-ligth);
+    color: var(--color-basic-ligth);
+  }
+  p {
+    color: inherit;
+    font-size: inherit;
+  }
+}

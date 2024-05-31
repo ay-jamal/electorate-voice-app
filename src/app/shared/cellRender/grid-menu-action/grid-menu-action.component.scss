@@ -1,0 +1,66 @@
+button {
+  position: relative;
+  border-radius: 50% !important;
+  color: #98a6ad;
+  width: 35px !important;
+  height: 35px !important;
+}
+.menu-content {
+  position: absolute;
+  top: 35px;
+  left: 60%;
+  z-index: 9999;
+  .menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: right;
+    background-color: #fff;
+    border: 1px solid #edf1f7;
+    border-radius: 10px;
+    filter: drop-shadow(0px 10px 30px rgba(134, 134, 134, 0.16));
+    min-width: var(--context-menu-min-width);
+    max-width: var(--context-menu-max-width);
+    overflow: hidden;
+    li {
+      padding: 10px 15px;
+      font-size: 12px;
+      cursor: pointer;
+      user-select: none;
+      font-family: "SST";
+      display: flex;
+      gap: 10px;
+      font-weight: bold;
+      align-items: center;
+      justify-content: end;
+      &:hover {
+        background-color: #edf1f7;
+      }
+      .icon {
+        margin-left: 5px;
+        color: var(--color-basic-ligth);
+      }
+    }
+  }
+}
+
+.container {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+::ng-deep .ag-cell-value {
+  overflow: visible !important;
+}
+
+::ng-deep .actions-button-cell {
+  overflow: visible;
+}
+
+::ng-deep .ag-row {
+  z-index: 0;
+}
+
+::ng-deep .ag-row.ag-row-focus {
+  z-index: 1;
+}
