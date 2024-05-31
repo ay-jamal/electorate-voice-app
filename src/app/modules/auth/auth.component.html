@@ -1,0 +1,87 @@
+<nb-layout>
+  <nb-layout-column>
+    <div class="auth-container">
+      <div class="right">
+        <div class="content">
+          <h3>أهلا بك مجددا</h3>
+          <p class="text-center">قم بتسجيل الدخول</p>
+        </div>
+        <form [formGroup]="LoginForm">
+          <div class="form-feaild">
+            <h3 class="feaild-name">اسم المستخدم</h3>
+            <input
+              [class.feaild-input-error]="
+                LoginForm.get('name').invalid && LoginForm.get('name').touched
+              "
+              dir="auto"
+              formControlName="credential"
+              placeholder="اكتب هنا"
+              class="feaild-input"
+              nbInput
+              type="text"
+            />
+          </div>
+          <small
+            *ngIf="
+              LoginForm.get('name').invalid && LoginForm.get('name').touched
+            "
+            class="error-message"
+            >هاذا الحقل مطلوب"
+          </small>
+          <div class="form-feaild mt-3">
+            <h3 class="feaild-name">كلمة المرور</h3>
+            <div class="feaild-input-icon pass-icon">
+              <fa-icon
+                (click)="ShowPassword = !ShowPassword"
+                class="eye-icon fa-fw"
+                [icon]="['fas', ShowPassword ? 'eye-slash' : 'eye']"
+              ></fa-icon>
+              <input
+                [class.feaild-input-error]="
+                  LoginForm.get('password').invalid &&
+                  LoginForm.get('password').touched
+                "
+                dir="auto"
+                formControlName="password"
+                placeholder="ادخل كلمة المرور"
+                class="feaild-input pe-3"
+                nbInput
+                [type]="ShowPassword ? 'text' : 'password'"
+              />
+            </div>
+            <small
+              *ngIf="
+                LoginForm.get('password').invalid &&
+                LoginForm.get('password').touched
+              "
+              class="error-message"
+              >هاذا الحقل مطلوب"
+            </small>
+          </div>
+          <!-- <div class="account-action mt-3">
+                  <a
+                    routerLink="/auth/forgot-password/email"
+                    [queryParams]="{ isReset: true }"
+                    >نسيت كلمة المرور ؟</a
+                  >
+                </div> -->
+          <button type="submit" class="btn w-100 mt-5 primary-btn" nbButton>
+            تسجيل الدخول
+          </button>
+        </form>
+      </div>
+      <div class="left">
+        <img class="img" src="./assets/images/login.png" alt="" />
+        <div class="text-content">
+          <h3 class="">نظام الناخبين</h3>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed ea
+            perferendis voluptatum fuga quis quos obcaecati tempore, omnis
+            veniam minus accusamus magnam quod facilis, ut consequuntur totam
+            unde quia animi!
+          </p>
+        </div>
+      </div>
+    </div>
+  </nb-layout-column>
+</nb-layout>
