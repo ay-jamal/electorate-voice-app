@@ -21,10 +21,6 @@ export class AuthService {
   }
 
   LogOut() {
-    // this.http.put(`${this.config.getAPILink()}/api/Users/v1/auth/logout`, null).subscribe({
-    //   next: (res) => {
-    //   }
-    // })
     localStorage.clear();
     this.route.navigate(['/auth']).then(() => window.location.reload());
     this.toast.info('تم انتهاء الجلسة', 'تم انتهاء صلاحية الجلسه ')
@@ -39,7 +35,7 @@ export class AuthService {
   }
 
   getToken() {
-    return localStorage.getItem("EsemsUserToken");
+    return localStorage.getItem("electorateUserToken");
   }
 
   resetPassowrd(passwordObject) {
@@ -47,7 +43,7 @@ export class AuthService {
   }
 
   isLoggedin() {
-    return !!localStorage.getItem("EsemsUserToken") && !!localStorage.getItem("EsemsUserData");
+    return !!localStorage.getItem("electorateUserToken") && !!localStorage.getItem("electorateUSerData");
   }
 
 
