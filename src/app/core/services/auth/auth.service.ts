@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { NbToastrService } from '@nebular/theme';
 import { ConfigService } from 'src/app/config/config.service';
 
@@ -46,5 +47,15 @@ export class AuthService {
     return !!localStorage.getItem("electorateUserToken") && !!localStorage.getItem("electorateUSerData");
   }
 
+  helper = new JwtHelperService();
+
+  getTokenState() {
+    try {
+      if (!this.isLoggedin()) return false;
+      return this.helper.isTokenExpired(localStorage.getItem("EsemsUserToken")!.split(':')[0]);
+    } catch (e) {
+      return true;
+    }
+  }
 
 }
