@@ -19,9 +19,8 @@ export class AuthComponent {
 
   ShowPassword: boolean = false
 
-
   LoginForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
   })
 

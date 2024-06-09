@@ -11,10 +11,11 @@
             <h3 class="feaild-name">اسم المستخدم</h3>
             <input
               [class.feaild-input-error]="
-                LoginForm.get('name').invalid && LoginForm.get('name').touched
+                LoginForm.get('username').invalid &&
+                LoginForm.get('username').touched
               "
               dir="auto"
-              formControlName="name"
+              formControlName="username"
               placeholder="اكتب هنا"
               class="feaild-input"
               nbInput
@@ -23,7 +24,8 @@
           </div>
           <small
             *ngIf="
-              LoginForm.get('name').invalid && LoginForm.get('name').touched
+              LoginForm.get('username').invalid &&
+              LoginForm.get('username').touched
             "
             class="error-message"
             >هاذا الحقل مطلوب"
