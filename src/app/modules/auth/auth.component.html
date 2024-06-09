@@ -14,7 +14,7 @@
                 LoginForm.get('name').invalid && LoginForm.get('name').touched
               "
               dir="auto"
-              formControlName="credential"
+              formControlName="name"
               placeholder="اكتب هنا"
               class="feaild-input"
               nbInput
@@ -65,7 +65,12 @@
                     >نسيت كلمة المرور ؟</a
                   >
                 </div> -->
-          <button type="submit" class="btn w-100 mt-5 primary-btn" nbButton>
+          <button
+            (click)="submit()"
+            type="submit"
+            class="btn w-100 mt-5 primary-btn"
+            nbButton
+          >
             تسجيل الدخول
           </button>
         </form>

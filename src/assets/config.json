@@ -1,5 +1,5 @@
 {
-  "API_IP": "http://195.234.122.131:9007",
+  "API_IP": "https://electorate-voice-api-17f7a9d16f96.herokuapp.com",
   "SystemName": "Electorate Voice",
   "Company": "QuibIt"
 }
