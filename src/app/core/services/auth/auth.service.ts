@@ -10,6 +10,8 @@ import { ConfigService } from 'src/app/config/config.service';
 })
 export class AuthService {
 
+  helper = new JwtHelperService();
+
   constructor(
     private config: ConfigService,
     private http: HttpClient,
@@ -47,12 +49,11 @@ export class AuthService {
     return !!localStorage.getItem("electorateUserToken") && !!localStorage.getItem("electorateUSerData");
   }
 
-  helper = new JwtHelperService();
 
   getTokenState() {
     try {
       if (!this.isLoggedin()) return false;
-      return this.helper.isTokenExpired(localStorage.getItem("EsemsUserToken")!.split(':')[0]);
+      return this.helper.isTokenExpired(localStorage.getItem("electorateUserToken")!.split(':')[0]);
     } catch (e) {
       return true;
     }
