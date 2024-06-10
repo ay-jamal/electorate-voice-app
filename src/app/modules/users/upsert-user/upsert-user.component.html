@@ -1,0 +1,45 @@
+<nb-card class="main-card filter-card">
+  <nb-card-header class="card-with-title-colse-btn">
+    <button
+      class="header-action"
+      nbButton
+      appearance="ghost"
+      (click)="close(null)"
+    >
+      إغلاق
+      <fa-icon class="ms-2 icon" [icon]="['fas', 'times']"></fa-icon>
+    </button>
+    <h3 class="h3-font">
+      {{ editMode ? "تعديل بيانات مستخدم" : "إضافة مستحدم " }}
+    </h3>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="UserForm">
+      <div class="row my-2">
+        <div class="form-feaild">
+          <h3 class="feaild-name">اسم المستخدم</h3>
+          <input
+            dir="auto"
+            placeholder="ادخل الاسم هنا"
+            class="feaild-input"
+            nbInput
+            type="text"
+          />
+        </div>
+        <!-- <small
+            *ngIf="
+              groupForm.get('groupName').invalid &&
+              groupForm.get('groupName').touched
+            "
+            class="error-message"
+            >هاذا الحقل مطلوب"
+          </small> -->
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer
+    ><button (click)="submit()" class="btn primary-btn mt-2" nbButton>
+      حفظ
+    </button>
+  </nb-card-footer>
+</nb-card>

@@ -13,7 +13,8 @@ export class FilterPipe implements PipeTransform {
         }
         searchText = searchText.toLowerCase();
         return items.filter(item => {
-            const permissionName = item.permissionName.toLowerCase();
+
+            const permissionName = item.login.toLowerCase();
             return permissionName.includes(searchText);
         });
     }

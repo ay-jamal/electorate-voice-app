@@ -15,6 +15,7 @@ import { ConfigService } from './config/config.service';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { ResultsComponent } from './modules/results/results.component';
+import { TokenInterceptorService } from './core/interceptors/token-interceptor.service';
 
 const ProjectConfigrations = (config: ConfigService) => {
   return () => {
@@ -48,6 +49,11 @@ const ProjectConfigrations = (config: ConfigService) => {
       useFactory: ProjectConfigrations,
       multi: true,
       deps: [ConfigService]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
     },
   ],
   bootstrap: [AppComponent]

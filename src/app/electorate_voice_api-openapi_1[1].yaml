@@ -1,0 +1,704 @@
+openapi: "3.0.3"
+info:
+  title: "electorate_voice_api API"
+  description: "electorate_voice_api API"
+  version: "1.0.0"
+servers:
+  - url: "https://electorate_voice_api"
+paths:
+  /api/register:
+    post:
+      summary: "POST api/register"
+      operationId: "registerAccount"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ManagedUserVM"
+        required: true
+      responses:
+        "201":
+          description: "Created"
+  /api/account:
+    post:
+      summary: "POST api/account"
+      operationId: "saveAccount"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminUserDTO"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+    get:
+      summary: "GET api/account"
+      operationId: "getAccount"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/AdminUserDTO"
+  /api/account/change-password:
+    post:
+      summary: "POST api/account/change-password"
+      operationId: "changePassword"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PasswordChangeDTO"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+  /api/account/reset-password/init:
+    post:
+      summary: "POST api/account/reset-password/init"
+      operationId: "requestPasswordReset"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "string"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+  /api/account/reset-password/finish:
+    post:
+      summary: "POST api/account/reset-password/finish"
+      operationId: "finishPasswordReset"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/KeyAndPasswordVM"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+  /api/activate:
+    get:
+      summary: "GET api/activate"
+      operationId: "activateAccount"
+      parameters:
+        - name: "key"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+  /api/authenticate:
+    get:
+      summary: "GET api/authenticate"
+      operationId: "isAuthenticated"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                type: "string"
+    post:
+      summary: "POST api/authenticate"
+      operationId: "authorize"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginVM"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/JWTToken"
+  /api/users:
+    get:
+      summary: "GET api/users"
+      operationId: "getAllPublicUsers"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/UserDTO"
+  /api/authorities:
+    get:
+      summary: "GET api/authorities"
+      operationId: "getAuthorities"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                type: "array"
+                items:
+                  type: "string"
+  /api/admin/users:
+    put:
+      summary: "PUT api/admin/users"
+      operationId: "updateUser"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminUserDTO"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/AdminUserDTO"
+    post:
+      summary: "POST api/admin/users"
+      operationId: "createUser"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminUserDTO"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/User"
+    get:
+      summary: "GET api/admin/users"
+      operationId: "getAllUsers"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/AdminUserDTO"
+  /api/admin/users/{login}:
+    delete:
+      summary: "DELETE api/admin/users/{login}"
+      operationId: "deleteUser"
+      parameters:
+        - name: "login"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Void"
+    get:
+      summary: "GET api/admin/users/{login}"
+      operationId: "getUser"
+      parameters:
+        - name: "login"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/AdminUserDTO"
+  /api/polls/{pollId}:
+    put:
+      summary: "PUT api/polls/{pollId}"
+      operationId: "updatePoll"
+      parameters:
+        - name: "pollId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Poll"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Poll"
+    delete:
+      summary: "DELETE api/polls/{pollId}"
+      operationId: "deletePoll"
+      parameters:
+        - name: "pollId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                type: "object"
+    get:
+      summary: "GET api/polls/{pollId}"
+      operationId: "getPoll"
+      parameters:
+        - name: "pollId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                type: "object"
+  /api/polls:
+    post:
+      summary: "POST api/polls"
+      operationId: "createPoll"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Poll"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                type: "object"
+    get:
+      summary: "GET api/polls"
+      operationId: "getAllPolls"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                type: "object"
+  /api/polls/{pollId}/responses/registered:
+    post:
+      summary: "POST api/polls/{pollId}/responses/registered"
+      operationId: "saveRegisteredResponse"
+      parameters:
+        - name: "pollId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/ResponseDTO"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                type: "object"
+  /api/polls/{pollId}/responses/anonymous:
+    post:
+      summary: "POST api/polls/{pollId}/responses/anonymous"
+      operationId: "saveAnonymousResponse"
+      parameters:
+        - name: "pollId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/ResponseDTO"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                type: "object"
+  /api/polls/{pollId}/results:
+    get:
+      summary: "GET api/polls/{pollId}/results"
+      operationId: "getPollResults"
+      parameters:
+        - name: "pollId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/PollResultDTO"
+  /api/candidates:
+    get:
+      summary: "GET api/candidates"
+      operationId: "searchCandidates"
+      parameters:
+        - name: "name"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+        - name: "party"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                type: "object"
+  /api/questions/{questionId}:
+    put:
+      summary: "PUT api/questions/{questionId}"
+      operationId: "updateQuestion"
+      parameters:
+        - name: "questionId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Question"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Question"
+    delete:
+      summary: "DELETE api/questions/{questionId}"
+      operationId: "deleteQuestion"
+      parameters:
+        - name: "questionId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                type: "object"
+  /api/answers/{answerId}:
+    put:
+      summary: "PUT api/answers/{answerId}"
+      operationId: "updateAnswer"
+      parameters:
+        - name: "answerId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Answer"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Answer"
+    delete:
+      summary: "DELETE api/answers/{answerId}"
+      operationId: "deleteAnswer"
+      parameters:
+        - name: "answerId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            "*/*":
+              schema:
+                type: "object"
+components:
+  schemas:
+    Instant:
+      type: "object"
+      properties: {}
+    ManagedUserVM:
+      type: "object"
+      properties:
+        password:
+          type: "string"
+        id:
+          type: "integer"
+          format: "int64"
+        login:
+          type: "string"
+        firstName:
+          type: "string"
+        lastName:
+          type: "string"
+        email:
+          type: "string"
+        imageUrl:
+          type: "string"
+        activated:
+          type: "boolean"
+        langKey:
+          type: "string"
+        createdBy:
+          type: "string"
+        createdDate:
+          $ref: "#/components/schemas/Instant"
+        lastModifiedBy:
+          type: "string"
+        lastModifiedDate:
+          $ref: "#/components/schemas/Instant"
+        authorities:
+          type: "array"
+          items:
+            type: "string"
+    AdminUserDTO:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        login:
+          type: "string"
+        firstName:
+          type: "string"
+        lastName:
+          type: "string"
+        email:
+          type: "string"
+        imageUrl:
+          type: "string"
+        activated:
+          type: "boolean"
+        langKey:
+          type: "string"
+        createdBy:
+          type: "string"
+        createdDate:
+          $ref: "#/components/schemas/Instant"
+        lastModifiedBy:
+          type: "string"
+        lastModifiedDate:
+          $ref: "#/components/schemas/Instant"
+        authorities:
+          type: "array"
+          items:
+            type: "string"
+    PasswordChangeDTO:
+      type: "object"
+      properties:
+        currentPassword:
+          type: "string"
+        newPassword:
+          type: "string"
+    KeyAndPasswordVM:
+      type: "object"
+      properties:
+        key:
+          type: "string"
+        newPassword:
+          type: "string"
+    UserDTO:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        login:
+          type: "string"
+    LoginVM:
+      type: "object"
+      properties:
+        username:
+          type: "string"
+        password:
+          type: "string"
+        rememberMe:
+          type: "boolean"
+    JWTToken:
+      type: "object"
+      properties: {}
+    User:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        login:
+          type: "string"
+        firstName:
+          type: "string"
+        lastName:
+          type: "string"
+        email:
+          type: "string"
+        activated:
+          type: "boolean"
+        langKey:
+          type: "string"
+        imageUrl:
+          type: "string"
+        resetDate:
+          $ref: "#/components/schemas/Instant"
+    Void:
+      type: "object"
+      properties: {}
+    Answer:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        content:
+          type: "string"
+    Question:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        content:
+          type: "string"
+        answers:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Answer"
+    Poll:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        title:
+          type: "string"
+        description:
+          type: "string"
+        startDate:
+          type: "string"
+          format: "date-time"
+        endDate:
+          type: "string"
+          format: "date-time"
+        visibility:
+          type: "boolean"
+        questions:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Question"
+    ResponseDTO:
+      type: "object"
+      properties:
+        questionId:
+          type: "integer"
+          format: "int64"
+        answerId:
+          type: "integer"
+          format: "int64"
+        anonymousUserId:
+          type: "string"
+    AnswerResultDTO:
+      type: "object"
+      properties:
+        answerId:
+          type: "integer"
+          format: "int64"
+        content:
+          type: "string"
+        responseCount:
+          type: "integer"
+          format: "int64"
+    QuestionResultDTO:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        content:
+          type: "string"
+        answers:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/AnswerResultDTO"
+    PollResultDTO:
+      type: "object"
+      properties:
+        pollId:
+          type: "integer"
+          format: "int64"
+        title:
+          type: "string"
+        questions:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/QuestionResultDTO"

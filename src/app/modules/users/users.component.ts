@@ -1,24 +1,58 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { agCofigrations } from 'src/app/config/table.configration';
 import { GridMenuActionComponent } from 'src/app/shared/cellRender/grid-menu-action/grid-menu-action.component';
 import { IsActiveComponent } from 'src/app/shared/cellRender/is-active/is-active.component';
 import { ColDef } from 'ag-grid-community';
+import { UsersService } from 'src/app/core/services/users.service';
+import { NbDialogService } from '@nebular/theme';
+import { UpsertUserComponent } from './upsert-user/upsert-user.component';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit {
 
   agConfig = new agCofigrations();
   selectedRows: any;
 
+  searchText: string = "";
+
+  constructor(private usersService: UsersService, private dialogService: NbDialogService) {
+
+  }
+
+  ngOnInit(): void {
+    this.getUsers()
+  }
 
   onRowSelection(event: any) {
     this.selectedRows = event.api.getSelectedRows();
   }
 
+  getUsers() {
+    this.usersService.getUsers().subscribe({
+      next: (res) => {
+        console.log(res)
+        this.agConfig.rowData = res
+      }
+    })
+  }
+
+
+  openAddUser() {
+    this.dialogService.open(UpsertUserComponent, {
+      context: {
+        editMode: false
+      }
+    }).onClose.subscribe({
+      next: (res) => {
+        if (!res) return;
+        this.getUsers();
+      }
+    })
+  }
 
   columnDefs: ColDef[] = [
     {
@@ -34,23 +68,6 @@ export class UsersComponent {
             data: 1
           },
           {
-            title: '',
-            data: 0,
-            functionality: {
-              PropertyName: 'isActive',
-              OnTrue: {
-                Caption: 'تغيير الحالة ',
-                Icon: 'toggle',
-                Data: 2,
-              },
-              OnFalse: {
-                Caption: ' تغيير الحالة',
-                Icon: 'toggle',
-                Data: 3,
-              }
-            }
-          },
-          {
             title: 'حذف',
             icon: 'trash',
             data: 4
@@ -61,31 +78,12 @@ export class UsersComponent {
       },
     },
     {
-      field: '',
-      headerName: 'الحالة',
-      cellRenderer: IsActiveComponent,
-      cellRendererParams: (params: any) => {
-        return {
-          className: params.data.isActive ? 'active' : 'notActive',
-          label: params.data.isActive ? 'مفعل' : 'غير مفعل',
-        }
-      }
-    },
-    {
-      field: '',
-      headerName: 'العنوان'
-    },
-    {
-      field: '',
-      headerName: 'البريد الالكتروني'
-    },
-    {
-      field: '',
-      headerName: 'رقم الهاتف'
-    },
-    {
-      field: '',
+      field: 'login',
       headerName: 'اسم المستخدم'
+    },
+    {
+      field: 'id',
+      headerName: ' رقم المستخدم '
     },
   ]
 

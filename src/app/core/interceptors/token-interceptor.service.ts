@@ -24,7 +24,7 @@ export class TokenInterceptorService {
     this.progressbar.isLoading.next(true);
     let authService = this.inject.get(AuthService);
     if (this.auth.getTokenState()) {
-      // this.auth.LogOut();
+      this.auth.LogOut();
     }
     let token = req.clone({
       setHeaders: {

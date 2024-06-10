@@ -28,8 +28,7 @@ export class AuthComponent {
     this.auth.logIn(this.LoginForm.value).subscribe({
       next: (res: any) => {
         console.log(res);
-        localStorage.setItem('electorateUserToken', res.token)
-        delete res.token;
+        localStorage.setItem('electorateUserToken', res.id_token)
         this.router.navigate(['/home'])
       }
     })

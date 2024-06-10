@@ -7,11 +7,15 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NbCardModule, NbButtonModule, NbCheckboxModule, NbProgressBarModule, NbRadioModule, NbSelectModule } from '@nebular/theme';
 import { AgGridModule } from 'ag-grid-angular';
+import { UpsertUserComponent } from './upsert-user/upsert-user.component';
+import { FilterPipe } from 'src/app/core/pipe/search.pipe';
 
 
 @NgModule({
   declarations: [
-    UsersComponent
+    UsersComponent,
+    UpsertUserComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,
