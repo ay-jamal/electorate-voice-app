@@ -19,21 +19,104 @@
         <div class="form-feaild">
           <h3 class="feaild-name">اسم المستخدم</h3>
           <input
+            [class.feaild-input-error]="
+              UserForm.get('login').invalid && UserForm.get('login').touched
+            "
             dir="auto"
             placeholder="ادخل الاسم هنا"
             class="feaild-input"
             nbInput
             type="text"
+            formControlName="login"
           />
         </div>
-        <!-- <small
-            *ngIf="
-              groupForm.get('groupName').invalid &&
-              groupForm.get('groupName').touched
+        <small
+          *ngIf="UserForm.get('login').invalid && UserForm.get('login').touched"
+          class="error-message"
+          >هاذا الحقل مطلوب"
+        </small>
+      </div>
+      <div class="row mb-2">
+        <div class="form-feaild">
+          <h3 class="feaild-name">الاسم الأول</h3>
+          <input
+            [class.feaild-input-error]="
+              UserForm.get('firstName').invalid &&
+              UserForm.get('firstName').touched
             "
-            class="error-message"
-            >هاذا الحقل مطلوب"
-          </small> -->
+            dir="auto"
+            placeholder="ادخل الاسم هنا"
+            class="feaild-input"
+            nbInput
+            type="text"
+            formControlName="firstName"
+          />
+        </div>
+        <small
+          *ngIf="
+            UserForm.get('firstName').invalid &&
+            UserForm.get('firstName').touched
+          "
+          class="error-message"
+          >هاذا الحقل مطلوب"
+        </small>
+      </div>
+      <div class="row mb-2">
+        <div class="form-feaild">
+          <h3 class="feaild-name">الاسم الثاني</h3>
+          <input
+            [class.feaild-input-error]="
+              UserForm.get('lastName').invalid &&
+              UserForm.get('lastName').touched
+            "
+            dir="auto"
+            placeholder="ادخل الاسم هنا"
+            class="feaild-input"
+            nbInput
+            type="text"
+            formControlName="lastName"
+          />
+        </div>
+        <small
+          *ngIf="
+            UserForm.get('lastName').invalid && UserForm.get('lastName').touched
+          "
+          class="error-message"
+          >هاذا الحقل مطلوب"
+        </small>
+      </div>
+      <div class="row mb-2">
+        <div class="form-feaild">
+          <h3 class="feaild-name">البريد الألكتروني</h3>
+          <input
+            [class.feaild-input-error]="
+              UserForm.get('email').invalid && UserForm.get('email').touched
+            "
+            dir="auto"
+            placeholder="example@example.com"
+            class="feaild-input"
+            nbInput
+            type="text"
+            formControlName="email"
+          />
+        </div>
+        <small
+          *ngIf="UserForm.get('email').invalid && UserForm.get('email').touched"
+          class="error-message"
+          >هاذا الحقل مطلوب"
+        </small>
+      </div>
+      <div class="form-feaild w-100">
+        <h3 class="feaild-name">الصلاحية</h3>
+        <nb-select
+          class="feaild-multiple-select"
+          dir="rtl"
+          multiple
+          placeholder="اختر الصلاحية"
+        >
+          <nb-option value="ROLE_USER">صلاحية مستخدم</nb-option>
+          <nb-option value="ROLE_ADMIN"> صلاحية مدير نظام </nb-option>
+        </nb-select>
       </div>
     </form>
   </nb-card-body>

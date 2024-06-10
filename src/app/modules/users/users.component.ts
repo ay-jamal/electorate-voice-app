@@ -4,7 +4,7 @@ import { GridMenuActionComponent } from 'src/app/shared/cellRender/grid-menu-act
 import { IsActiveComponent } from 'src/app/shared/cellRender/is-active/is-active.component';
 import { ColDef } from 'ag-grid-community';
 import { UsersService } from 'src/app/core/services/users.service';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { UpsertUserComponent } from './upsert-user/upsert-user.component';
 
 @Component({
@@ -19,8 +19,11 @@ export class UsersComponent implements OnInit {
 
   searchText: string = "";
 
-  constructor(private usersService: UsersService, private dialogService: NbDialogService) {
-
+  constructor(
+    private usersService: UsersService,
+    private dialogService: NbDialogService,
+    private toastr: NbToastrService
+  ) {
   }
 
   ngOnInit(): void {
@@ -29,6 +32,8 @@ export class UsersComponent implements OnInit {
 
   onRowSelection(event: any) {
     this.selectedRows = event.api.getSelectedRows();
+    console.log(this.selectedRows);
+
   }
 
   getUsers() {
@@ -40,7 +45,6 @@ export class UsersComponent implements OnInit {
     })
   }
 
-
   openAddUser() {
     this.dialogService.open(UpsertUserComponent, {
       context: {
@@ -50,6 +54,28 @@ export class UsersComponent implements OnInit {
       next: (res) => {
         if (!res) return;
         this.getUsers();
+      }
+    })
+  }
+
+  openEditUser(user) {
+    this.dialogService.open(UpsertUserComponent, {
+      context: {
+        editMode: true,
+        user
+      }
+    }).onClose.subscribe({
+      next: (res) => {
+        if (!res) return;
+        this.getUsers();
+      }
+    })
+  }
+
+  deleteUser() {
+    this.usersService.deleteUsers(this.selectedRows[0].login).subscribe({
+      next: (res) => {
+        this.toastr.success("تمت العملية", "تم حذف المستخدم بنجاح");
       }
     })
   }
@@ -70,10 +96,16 @@ export class UsersComponent implements OnInit {
           {
             title: 'حذف',
             icon: 'trash',
-            data: 4
+            data: 2
           },
         ],
         clicked: params => {
+          if (params.data == 1) {
+            this.openEditUser(params.params)
+          }
+          if (params.data == 2) {
+            this.deleteUser()
+          }
         },
       },
     },

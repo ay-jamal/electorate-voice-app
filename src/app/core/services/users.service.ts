@@ -15,6 +15,10 @@ export class UsersService {
     return this.commonLogic.getEndPoints(endPoint)
   }
 
+  getUser(login: string) {
+    const endPoint = `/api/admin/users/${login}`
+    return this.commonLogic.getEndPoints(endPoint)
+  }
 
   addUsers(userObject) {
     const endPoint = `/api/admin/users`
@@ -24,6 +28,11 @@ export class UsersService {
   editUsers(userObject) {
     const endPoint = `/api/admin/users`
     return this.commonLogic.addAndEditEndPoints(endPoint, userObject, "put")
+  }
+
+  deleteUsers(login) {
+    const endPoint = `/api/admin/users/${login}`
+    return this.commonLogic.deleteEndPoints(endPoint)
   }
 
 }

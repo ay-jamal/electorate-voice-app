@@ -19,11 +19,16 @@
       </div>
     </div>
     <div class="end">
-      <button class="btn primary-btn ms-2" nbButton>
+      <button (click)="openAddUser()" class="btn primary-btn ms-2" nbButton>
         <fa-icon class="btn-icon" [icon]="['fas', 'plus']"></fa-icon>
         إضافة مستخدم جديد
       </button>
-      <button class="btn danger-outline-btn ms-2" nbButton>
+      <button
+        [disabled]="!selectedRows"
+        (click)="deleteUser()"
+        class="btn danger-outline-btn ms-2"
+        nbButton
+      >
         <fa-icon class="btn-icon" [icon]="['fas', 'trash']"></fa-icon>
         حذف
       </button>
