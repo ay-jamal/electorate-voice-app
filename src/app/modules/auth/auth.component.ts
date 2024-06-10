@@ -29,7 +29,7 @@ export class AuthComponent {
       next: (res: any) => {
         console.log(res);
         localStorage.setItem('electorateUserToken', res.token)
-        delete res.data.token;
+        delete res.token;
         this.router.navigate(['/home'])
       }
     })
