@@ -11,8 +11,13 @@ export class PollService {
   ) { }
 
   getPolls() {
-    const endPoint = `/api/polls/results`
- return  this.commonLogic.getEndPoints(endPoint)
+    const endPoint = `/api/polls/`
+    return this.commonLogic.getEndPoints(endPoint)
+  }
+
+  deletePolls(pollId: string) {
+    const endPoint = `/api/polls/{pollId}`
+    return this.commonLogic.deleteEndPoints(endPoint)
   }
 
 }

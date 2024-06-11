@@ -14,7 +14,7 @@
     </h3>
   </nb-card-header>
   <nb-card-body>
-    <div class="row my-2">
+    <form [formGroup]="CandidatesForm" class="row my-2">
       <div class="form-feaild">
         <h3 class="feaild-name">اسم المرشح</h3>
         <input
@@ -23,9 +23,54 @@
           class="feaild-input"
           nbInput
           type="text"
+          formControlName="name"
         />
       </div>
-    </div>
+      <div class="form-feaild">
+        <h3 class="feaild-name">الحجزب</h3>
+        <input
+          dir="auto"
+          placeholder="اكتب هنا"
+          class="feaild-input"
+          nbInput
+          type="text"
+          formControlName="party"
+        />
+      </div>
+      <div class="form-feaild">
+        <h3 class="feaild-name">السيرة شخصية</h3>
+        <input
+          dir="auto"
+          placeholder="اكتب هنا"
+          class="feaild-input"
+          nbInput
+          type="text"
+          formControlName="biography"
+        />
+      </div>
+      <div class="form-feaild">
+        <h3 class="feaild-name">الإنجازات</h3>
+        <input
+          dir="auto"
+          placeholder="اكتب هنا"
+          class="feaild-input"
+          nbInput
+          type="text"
+          formControlName="achievements"
+        />
+      </div>
+      <div class="form-feaild">
+        <h3 class="feaild-name">القضايا الرئيسية</h3>
+        <input
+          dir="auto"
+          placeholder="اكتب هنا"
+          class="feaild-input"
+          nbInput
+          type="text"
+          formControlName="keyIssues"
+        />
+      </div>
+    </form>
   </nb-card-body>
   <nb-card-footer
     ><button (click)="submit()" class="btn primary-btn mt-2" nbButton>

@@ -10,9 +10,18 @@ export class CandidatesService {
     private commonLogic: CommonLogicService,
   ) { }
 
-  getCandidates(filterObject) {
+  getCandidates() {
     const endPoint = `/api/candidates`;
-    return this.commonLogic.getEndPoints(endPoint, filterObject);
+    return this.commonLogic.getEndPoints(endPoint);
+  }
+
+  addCandidates(Candidates) {
+    const endPoint = `/api/candidates`;
+    return this.commonLogic.addAndEditEndPoints(endPoint, Candidates, "post");
+  }
+  deleteCandidates(id) {
+    const endPoint = `/api/candidates/${id}`;
+    return this.commonLogic.deleteEndPoints(endPoint);
   }
 
 }

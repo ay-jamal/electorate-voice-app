@@ -12,8 +12,6 @@
             class="feaild-input"
             nbInput
             type="text"
-            [(ngModel)]="filterObject.name"
-            (keyup.enter)="getCandidates()"
           />
           <fa-icon class="input-icon" [icon]="['fas', 'search']"></fa-icon>
         </div>
@@ -24,7 +22,12 @@
         <fa-icon class="btn-icon" [icon]="['fas', 'plus']"></fa-icon>
         إضافة مرشح جديد
       </button>
-      <button class="btn danger-outline-btn ms-2" nbButton>
+      <button
+        (click)="deleteCandidate()"
+        (click)="deleteCandidate()"
+        class="btn danger-outline-btn ms-2"
+        nbButton
+      >
         <fa-icon class="btn-icon" [icon]="['fas', 'trash']"></fa-icon>
         حذف
       </button>

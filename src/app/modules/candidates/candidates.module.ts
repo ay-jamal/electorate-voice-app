@@ -8,12 +8,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NbCardModule, NbButtonModule, NbCheckboxModule, NbProgressBarModule, NbRadioModule, NbSelectModule } from '@nebular/theme';
 import { AgGridModule } from 'ag-grid-angular';
 import { UpsertCandidatesComponent } from './upsert-candidates/upsert-candidates.component';
+import { FilterPipe } from 'src/app/core/pipe/search.pipe';
 
 
 @NgModule({
   declarations: [
     CandidatesComponent,
-    UpsertCandidatesComponent
+    UpsertCandidatesComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,

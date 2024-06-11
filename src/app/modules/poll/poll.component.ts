@@ -2,7 +2,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { agCofigrations } from 'src/app/config/table.configration';
 import { GridMenuActionComponent } from 'src/app/shared/cellRender/grid-menu-action/grid-menu-action.component';
 import { ColDef } from 'ag-grid-community';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { UpsertPollComponent } from './upsert-poll/upsert-poll.component';
 import { Router } from '@angular/router';
 import { PollService } from 'src/app/core/services/poll.service';
@@ -20,17 +20,22 @@ export class PollComponent implements OnInit {
   constructor(
     private inject: Injector,
     private router: Router,
-    private PollService: PollService
+    private PollService: PollService,
+    private toastr: NbToastrService
   ) {
   }
 
   ngOnInit(): void {
+    this.getPolls()
   }
+
 
   getPolls() {
     this.PollService.getPolls().subscribe({
       next: (res) => {
-        this.agConfig.rowData = res.polls
+        console.log(res);
+
+        this.agConfig.rowData = res
       }
     })
   }
@@ -52,12 +57,22 @@ export class PollComponent implements OnInit {
     })
   }
 
+  deletePoll() {
+    this.PollService.deletePolls(this.selectedRows[0].id).subscribe({
+      next: () => {
+        this.toastr.success("تمت العملية", "تم حذف الاستبيان بنجاح");
+        this.getPolls()
+      }
+    })
+  }
+
 
   columnDefs: ColDef[] = [
     {
       field: '',
       headerName: '',
       sortable: false,
+      maxWidth: 80,
       cellRenderer: GridMenuActionComponent,
       cellRendererParams: {
         items: [
@@ -85,11 +100,31 @@ export class PollComponent implements OnInit {
       },
     },
     {
-      field: '',
-      headerName: 'تاريخ انتهاء الاستطلاع'
+      field: 'endDate',
+      headerName: 'تاريخ الأنتهاء ',
+      maxWidth: 130,
+      valueFormatter: ({ value }) => {
+        const date = new Date(value);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+      },
     },
     {
-      field: '',
+      field: 'startDate',
+      headerName: 'تاريخ  البدء',
+      maxWidth: 120,
+      valueFormatter: ({ value }) => {
+        const date = new Date(value);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+      },
+    },
+    {
+      field: 'description',
       headerName: 'وصف',
       cellRenderer: (params: any) => {
         return `
@@ -109,11 +144,31 @@ export class PollComponent implements OnInit {
       }
     },
     {
-      field: 'content',
-      headerName: 'العنوان'
+      field: 'questions',
+      headerName: 'السؤال'
     },
     {
-      field: 'questionID',
+      field: 'title',
+      headerName: 'العنوان',
+      cellRenderer: (params: any) => {
+        return `
+          <p  
+          style="
+          max-height: 100%;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: break-spaces;
+          direction: rtl;
+          font-size:12px;
+          ">${params.value} </p>
+        `
+      }
+    },
+    {
+      field: 'id',
       headerName: 'رقم السؤال'
     },
   ]

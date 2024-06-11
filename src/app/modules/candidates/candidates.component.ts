@@ -3,7 +3,7 @@ import { agCofigrations } from 'src/app/config/table.configration';
 import { GridMenuActionComponent } from 'src/app/shared/cellRender/grid-menu-action/grid-menu-action.component';
 import { IsActiveComponent } from 'src/app/shared/cellRender/is-active/is-active.component';
 import { ColDef } from 'ag-grid-community';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { UpsertCandidatesComponent } from './upsert-candidates/upsert-candidates.component';
 import { CandidatesService } from 'src/app/core/services/candidates.service';
 
@@ -16,22 +16,21 @@ export class CandidatesComponent implements OnInit {
 
   constructor(
     private inject: Injector,
-    private CandidatesService: CandidatesService
+    private CandidatesService: CandidatesService,
+    private toastr: NbToastrService
   ) {
   }
 
-  filterObject = {
-    name: null
-  }
 
   ngOnInit(): void {
     this.getCandidates()
   }
 
   getCandidates() {
-    this.CandidatesService.getCandidates(this.filterObject).subscribe({
+    this.CandidatesService.getCandidates().subscribe({
       next: (res) => {
-        this.agConfig.rowData = res.candidates
+        console.log(res);
+        this.agConfig.rowData = res
       }
     })
   }
@@ -52,10 +51,34 @@ export class CandidatesComponent implements OnInit {
     }).onClose.subscribe({
       next: (res) => {
         if (!res) return;
+        this.getCandidates()
       }
     })
   }
 
+  editCandidate(candidate) {
+    let dialog = this.inject.get(NbDialogService)
+    dialog.open(UpsertCandidatesComponent, {
+      context: {
+        editMode: true,
+        candidate
+      }
+    }).onClose.subscribe({
+      next: (res) => {
+        if (!res) return;
+        this.getCandidates()
+      }
+    })
+  }
+
+  deleteCandidate() {
+    this.CandidatesService.deleteCandidates(this.selectedRows[0].id).subscribe({
+      next: (res) => {
+        this.toastr.success("تمت العملية", "تم حذف المرشح بنجاح");
+        this.getCandidates()
+      }
+    })
+  }
 
   columnDefs: ColDef[] = [
     {
@@ -66,37 +89,43 @@ export class CandidatesComponent implements OnInit {
       cellRendererParams: {
         items: [
           {
-            title: 'تعديل',
-            icon: 'edit',
-            data: 1
-          },
-          {
             title: 'حذف',
             icon: 'trash',
-            data: 4
+            data: 2
           },
         ],
         clicked: params => {
+          if (params.data == 1) {
+            this.editCandidate(params.params)
+          }
+          if (params.data == 2) {
+            this.deleteCandidate()
+          }
         },
       },
     },
-    // {
-    //   field: '',
-    //   headerName: 'الحالة',
-    //   cellRenderer: IsActiveComponent,
-    //   cellRendererParams: (params: any) => {
-    //     return {
-    //       className: params.data.isActive ? 'active' : 'notActive',
-    //       label: params.data.isActive ? 'مفعل' : 'غير مفعل',
-    //     }
-    //   }
-    // },
+    {
+      field: 'keyIssues',
+      headerName: 'القضايا الرئيسية '
+    },
+    {
+      field: 'achievements',
+      headerName: 'الإنجازات '
+    },
+    {
+      field: 'biography',
+      headerName: 'سيرة شخصية'
+    },
+    {
+      field: 'party',
+      headerName: 'الحجزب'
+    },
     {
       field: 'name',
       headerName: 'اسم المرشح'
     },
     {
-      field: 'candidateID',
+      field: 'id',
       headerName: 'رقم المرشح',
       maxWidth: 50
     },

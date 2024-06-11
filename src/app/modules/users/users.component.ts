@@ -74,8 +74,9 @@ export class UsersComponent implements OnInit {
 
   deleteUser() {
     this.usersService.deleteUsers(this.selectedRows[0].login).subscribe({
-      next: (res) => {
+      next: () => {
         this.toastr.success("تمت العملية", "تم حذف المستخدم بنجاح");
+        this.getUsers()
       }
     })
   }
